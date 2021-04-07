@@ -1,6 +1,7 @@
 # Kilogram messenger
 ## Table of contents
-[Project Structure](#project-structure)
+[Project Structure](#project-structure) \
+[Linter Usage]()
 
 ## Project Structure
 ```bash
@@ -17,3 +18,13 @@
 ├── static                  # Folder for static files (css, js, images and etc)
 └── templates               # Folder for html templates
 ```
+
+## Linter Usage
+#### stylelint
+To print stylelint errors, use:
+```bash
+npx stylelint "**/*.css"
+```
+To integrate stylelint in Webstorm:
+> 1. Go to Preference → Languages and Frameworks → Style Sheets → Stylelint
+> 2. Check enable checkbox
