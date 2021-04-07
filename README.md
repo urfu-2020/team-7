@@ -1,7 +1,7 @@
 # Kilogram messenger
 ## Table of contents
 [Project Structure](#project-structure) \
-[Linter Usage]()
+[Linter Usage](#linter-usage)
 
 ## Project Structure
 ```bash
