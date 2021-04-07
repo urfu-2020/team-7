@@ -1,0 +1,32 @@
+# OS X
+.DS_Store
+Icon?
+._*
+
+# Linux
+.directory
+*~
+
+# npm
+node_modules
+package-lock.json
+*.log
+*.gz
+npm-debug.log
+.env
+*.seed
+*.csv
+*.dat
+*.out
+*.pid
+
+pids
+logs
+results
+build
+thumbs.db
+lib-cov
+
+# Git
+.git
+.idea
