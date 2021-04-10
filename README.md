@@ -1,6 +1,7 @@
 # Kilogram messenger
 ## Table of contents
 [Project Structure](#project-structure) \
+[Main commands (Makefile)](#main-commands) \
 [Linter Usage](#linter-usage)
 
 ## Project Structure
@@ -19,7 +20,18 @@
 ├── static                  # Folder for static files (css, js, images and etc)
 └── templates               # Folder for html templates
 ```
+## Main commands
+#### Makefile
+We are using Makefile to run our app, so...
+> To run application use
+>```bash
+>make run
+>```
 
+> To run all linters use
+>```bash
+>make lint
+>```
 ## Linter Usage
 #### stylelint
 To print stylelint errors, use:
