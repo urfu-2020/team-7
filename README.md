@@ -1,7 +1,7 @@
 # Kilogram messenger
 ## Table of contents
 [Project Structure](#project-structure) \
-[Main commands (Makefile)](#main-commands) \
+[Main commands](#main-commands) \
 [Linter Usage](#linter-usage)
 
 ## Project Structure
@@ -21,17 +21,21 @@
 └── templates               # Folder for html templates
 ```
 ## Main commands
-#### Makefile
-We are using Makefile to run our app, so...
-> To run application use
+#### App running
+We are using npm scripts to run our app, so...
+> To run application in **debug** mode use
 >```bash
->make run
+>npm run start
+>```
+> To run application in **production** mode use
+>```bash
+>npm run startp
+>```
+> To run linters use
+>```bash
+>npm run lint
 >```
 
-> To run all linters use
->```bash
->make lint
->```
 ## Linter Usage
 #### stylelint
 To print stylelint errors, use:
