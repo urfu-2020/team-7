@@ -1,8 +1,7 @@
 const { error404 } = require('./api/errors');
+const { base } = require('./api/index');
 
 module.exports = (app) => {
-  app.get('/', (req, res) => {
-    res.send('<h1>Hello, world!</h1>');
-  });
+  app.get('/', base);
   app.all('*', error404);
 };
