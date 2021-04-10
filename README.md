@@ -7,6 +7,7 @@
 ```bash
 ├── Kilogram                # Express.js app
 │   └── app.js              # App entry point
+│   └── routes.js           # App routing resolver
 │   └── api                 # Express route controllers for all the endpoints of the app
 │   └── config              # Environment variables and configuration related stuff
 │   └── jobs                # Jobs definitions for agenda.js
