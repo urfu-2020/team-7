@@ -1,5 +1,6 @@
 @media screen and (max-width: 1010px), screen and (max-height: 600px) {
     .main-window {
         height: 100vh;
+        margin-bottom: 0;
     }
 }
