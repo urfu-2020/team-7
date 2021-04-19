@@ -56,10 +56,11 @@ body {
     background: var(--bg-header);
 }
 .hidden {
-    display: none;
+    display: none !important;
 }
 .header__menu-button,
-.header__title {
+.header__title,
+.header__back-button {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -70,8 +71,16 @@ body {
     margin-left: 15px;
     cursor: pointer;
 }
-.header__menu-button:hover {
+.header__back-button {
+    display: none;
+    margin-left: 15px;
+}
+.header__menu-button:hover,
+.header__back-button:hover {
     background: var(--bg-header-hover);
+}
+.flex-filler {
+    flex-grow: 99;
 }
 .main-window__contacts-container,
 .main-window__search-container {
@@ -292,4 +301,7 @@ body {
 }
 .message__content {
     padding-right: 10px;
+}
+#back-check:checked ~ .content-box .header__back-button {
+    display: flex;
 }
