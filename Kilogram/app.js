@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 // eslint-disable-next-line no-unused-vars
 const hbs = require('hbs');
 const config = require('config');
