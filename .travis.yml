@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- 14.15.1
+install:
+- npm install
+#script:
+#    - npm run test
+branches:
+  only:
+  - main
+deploy:
+  provider: heroku
+  api_key:
+    secure: TW1aN1QoLySLPbxx9odoVQ8QOYfboolcZ+mljwuSTQHLuAtcGEYOWRER7MrqOeiMM3gTthGNRPaImlhHty8AJ8W10UZnUWabMSHEMaeGQRXZuEocSs6lF4lDZ10W0N+XKw1Gtnw3mUMtvTn+gXrciY9NKBiEO179VQslvCjKAYb3A6xmBXwBAQR+NVlgPObDkwXYPDpwBZDpY0A8xZv2XLecxA1u3sORT33OU0rcvtMpy062ZPQN/lgzCOdyTPPhrTegg8nOCLBomvosE8x7FHU+dgxwo4EsKsXSui1/E6SMXD8CZjcGeoh0fPS+OkrUWduWLb7DOGpEGpvbLc8J+Y3R8SJET0LDl9A4GDFncVG4TBi5halyI2ylEcKLddXZZ30fTi16eLh3BkmyKRXfFXKsjScD2fZGuLtT/uUSxycWM92k7mNtqpshvGjHBaIY8VSS42PWKkwNAS7DvGa0ShtnND953VyNq0XRlUk+So2e6+6dEElg11NvadoSuzKgZ2vZgvZCbLsw5EBwa1KLV9FeA7CcjFCfDThIcCc+pFom9il6lRwNGfn5Tbj1nxfUyyUT3z5wPqxQ+sLShcm0gCPsdmja/B8annAyggCD8kQQSRo3Vwjl0hutNk6S2pbupc5vGlHDInjG3+0nNHaP8/q/YDd3i8dmWzlMmwIHLXM=
+  app:
+    main: kilogram-team7
