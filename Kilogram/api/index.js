@@ -6,3 +6,14 @@ exports.base = (req, res) => {
     meta: baseMeta,
   });
 };
+
+exports.login = (req, res) => {
+  if (req.user) {
+    res.redirect('/');
+  } else {
+    res.render('login', {
+      title: 'Kilogram Login',
+      meta: baseMeta,
+    });
+  }
+};
