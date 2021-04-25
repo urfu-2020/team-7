@@ -46,6 +46,8 @@ passport.serializeUser((profile, done) => {
   models.User.findOrCreate({
     where: {
       id: profile.id,
+    },
+    defaults: {
       username: profile.username,
       name: profile.displayName,
     },
