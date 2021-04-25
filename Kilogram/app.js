@@ -11,4 +11,4 @@ app.use(express.static(config.get('staticPath')));
 
 require('./routes')(app);
 
-app.listen(config.get('port'));
+app.listen(process.env.PORT || config.get('port'));

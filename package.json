@@ -36,8 +36,8 @@
     "lint:css": "stylelint **/*.css",
     "lint:js": "eslint .",
     "lint": "npm run lint:css & npm run lint:js",
-    "start": "cd Kilogram && node app.js",
-    "startp": "cd Kilogram && NODE_ENV=production node app.js",
+    "startd": "cd Kilogram && node app.js",
+    "start": "cd Kilogram && NODE_ENV=production node app.js",
     "clean": "rimraf node_modules/"
   },
   "dependencies": {
