@@ -8,6 +8,7 @@
     "eslint-plugin-import": "^2.22.1",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
+    "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
     "rimraf": "2.5.2",
     "stylelint": "^13.12.0",
@@ -37,16 +38,20 @@
     "lint:css": "stylelint **/*.css",
     "lint:js": "eslint .",
     "lint": "npm run lint:css & npm run lint:js",
-    "start": "cd Kilogram && node -r dotenv/config app.js",
-    "startp": "cd Kilogram && NODE_ENV=production node app.js",
+    "startd": "cd Kilogram && nodemon -r dotenv/config app.js",
+    "start": "cd Kilogram && NODE_ENV=production node app.js",
     "clean": "rimraf node_modules/"
   },
   "dependencies": {
     "config": "^3.3.6",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "hbs": "^4.1.1",
     "passport": "^0.4.1",
-    "passport-github": "^1.1.0"
+    "passport-github": "^1.1.0",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.6.2"
   }
 }

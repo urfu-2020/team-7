@@ -5,7 +5,11 @@ const hbs = require('hbs');
 const config = require('config');
 const passport = require('passport');
 const passportGithub = require('passport-github');
+const cors = require('cors');
+const sequelize = require('./db');
+const models = require('./models/models');
 
+// SETTING UP AUTH STRATEGY
 const strategy = new passportGithub.Strategy(
   {
     clientID: process.env.GITHUB_CLIENT_ID,
@@ -18,9 +22,12 @@ const strategy = new passportGithub.Strategy(
     done(null, profile);
   },
 );
-
+// CREATING APP
 const app = express();
 
+// MIDDLEWARES
+app.use(cors());
+app.use(express.json());
 app.use(expressSession({
   secret: process.env.EXPRESS_SESSION_SECRET,
   resave: false,
@@ -33,8 +40,16 @@ app.use(expressSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// PASSPORT SETUP
 passport.serializeUser((profile, done) => {
-  done(null, profile);
+  models.User.findOrCreate({
+    where: {
+      id: profile.id,
+      username: profile.username,
+      name: profile.displayName,
+    },
+  }).then(() => done(null, profile));
 });
 passport.deserializeUser((profile, done) => {
   done(null, profile);
@@ -47,4 +62,16 @@ app.use(express.static(config.get('staticPath')));
 
 require('./routes')(app, passport);
 
-app.listen(config.get('port'));
+// DB SETUP
+const start = async () => {
+  try {
+    await sequelize.authenticate();
+    await sequelize.sync();
+    app.listen(process.env.PORT || config.get('port'));
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
+  }
+};
+
+start();
