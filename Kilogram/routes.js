@@ -4,7 +4,7 @@ const { toChats, isAuth } = require('./api/redirects');
 
 module.exports = (app, passport) => {
   app.get('/', isAuth, toChats);
-  app.get('/chats', base);
+  app.get('/chats', isAuth, base);
   app.get('/login', login);
   app.get('/logout');
   app.get('/auth/github', passport.authenticate('github'));

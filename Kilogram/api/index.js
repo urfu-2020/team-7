@@ -1,10 +1,12 @@
 const baseMeta = require('../config/baseMetaTags.json');
+const { getAllContacts } = require('../services/contacts');
 
 exports.base = (req, res) => {
-  res.render('base', {
+  getAllContacts().then((r) => res.render('base', {
     title: 'Kilogram',
     meta: baseMeta,
-  });
+    contacts: r,
+  }));
 };
 
 exports.login = (req, res) => {
