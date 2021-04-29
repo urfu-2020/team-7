@@ -1,7 +1,13 @@
 const { error404 } = require('./api/errors');
-const { base } = require('./api/index');
+const { base, login } = require('./api/index');
+const { toChats, isAuth } = require('./api/redirects');
 
-module.exports = (app) => {
-  app.get('/', base);
+module.exports = (app, passport) => {
+  app.get('/', isAuth, toChats);
+  app.get('/chats', isAuth, base);
+  app.get('/login', login);
+  app.get('/logout');
+  app.get('/auth/github', passport.authenticate('github'));
+  app.get('/auth/return', passport.authenticate('github', { failureRedirect: '/login' }), toChats);
   app.all('*', error404);
 };
