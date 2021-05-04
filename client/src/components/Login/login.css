@@ -1,0 +1,27 @@
+.content-box {
+    justify-content: center;
+}
+.auth-link {
+    position: relative;
+    box-sizing: border-box;
+    width: calc(100vw - 40px);
+    max-width: 420px;
+    padding: 1em 2em;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 2em;
+    background: var(--green);
+    border-radius: 10px;
+    -webkit-box-shadow: 0 1px 25px 0 rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0 1px 25px 0 rgba(34, 60, 80, 0.2);
+    box-shadow: 0 1px 25px 0 rgba(34, 60, 80, 0.2);
+}
+.auth-link:hover {
+    background: var(--dark-green);
+}
+.login-logo {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 40px;
+    user-select: none;
+}
