@@ -1,9 +1,9 @@
 import React from 'react';
-import MainPage from "./components/MainPage/MainPage";
+import AppRouter from "./AppRouter";
 
 function App() {
   return (
-    <MainPage />
+    <AppRouter />
   );
 }
 

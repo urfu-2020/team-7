@@ -1,10 +1,4 @@
-exports.toChats = (req, res) => {
-  res.redirect('/chats');
-};
-exports.isAuth = (req, res, next) => {
-  if (req.user) {
-    next();
-  } else {
-    res.redirect('/login');
-  }
+exports.logout = (req, res) => {
+  req.logout();
+  res.redirect(process.env.CLIENT_HOME_URL);
 };

@@ -1,68 +1,37 @@
 const express = require('express');
-const expressSession = require('express-session');
-// eslint-disable-next-line no-unused-vars
-const hbs = require('hbs');
 const config = require('config');
 const passport = require('passport');
-const passportGithub = require('passport-github');
+const cookieSession = require('cookie-session');
+// eslint-disable-next-line no-unused-vars
+const expressSession = require('express-session');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+// eslint-disable-next-line no-unused-vars
+const passportSetup = require('./config/passport-setup');
 const sequelize = require('./db');
-const models = require('./models/models');
 
-// SETTING UP AUTH STRATEGY
-const strategy = new passportGithub.Strategy(
-  {
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    // TODO: ПОМЕНЯТЬ ПОРТ ПОСЛЕ ПЕРЕХОДА НА REACT
-    // callbackURL: 'http://localhost:3000/auth/return'
-  },
-  // eslint-disable-next-line max-params
-  (accessToken, refreshToken, profile, done) => {
-    done(null, profile);
-  },
-);
 // CREATING APP
 const app = express();
 
 // MIDDLEWARES
-app.use(cors());
-app.use(express.json());
-app.use(expressSession({
-  secret: process.env.EXPRESS_SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    secure: false,
+app.use(
+  cookieSession({
+    name: 'session',
+    keys: [process.env.EXPRESS_SESSION_SECRET],
     maxAge: 24 * 60 * 60 * 1000,
-  },
-}));
+  }),
+);
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors({
+  origin: process.env.CLIENT_HOME_URL,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
+app.use(express.json());
 
-// PASSPORT SETUP
-passport.serializeUser((profile, done) => {
-  models.User.findOrCreate({
-    where: {
-      id: profile.id,
-    },
-    defaults: {
-      username: profile.username,
-      name: profile.displayName,
-    },
-  }).then(() => done(null, profile));
-});
-passport.deserializeUser((profile, done) => {
-  done(null, profile);
-});
-passport.use(strategy);
-
-app.set('view engine', config.get('engine'));
-app.set('views', config.get('templatePath'));
-app.use(express.static(config.get('staticPath')));
-
-require('./routes')(app, passport);
+require('./routes')(app);
 
 // DB SETUP
 const start = async () => {
