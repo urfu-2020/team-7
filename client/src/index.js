@@ -12,11 +12,12 @@ import {sagaWatcher} from "./redux/sagas";
 
 // eslint-disable-next-line no-unused-vars
 const saga = createSagaMiddleware();
+const devtools = process.env.NODE_ENV !== 'production' && window.navigator.userAgent.includes('Chrome')
+  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
+  : null
 const store = createStore(rootReducer, compose(
   applyMiddleware(thunk, saga),
-  window.navigator.userAgent.includes('Chrome')
-    ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    : compose
+  devtools
 ))
 
 saga.run(sagaWatcher)
