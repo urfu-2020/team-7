@@ -14,7 +14,9 @@ import {sagaWatcher} from "./redux/sagas";
 const saga = createSagaMiddleware();
 const store = createStore(rootReducer, compose(
   applyMiddleware(thunk, saga),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  window.navigator.userAgent.includes('Chrome')
+    ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    : compose
 ))
 
 saga.run(sagaWatcher)
