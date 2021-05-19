@@ -3,7 +3,7 @@ import './login.css';
 import logo from '../../logo.svg';
 
 function Login(props) {
-  const url = `${process.env.REACT_APP_SERVER_HOME_URL}:${process.env.REACT_APP_SERVER_PORT}/auth/github`;
+  const url = `/auth/github`;
   return (
     <>
       <img src={logo} alt="Logo" className="login-logo"/>

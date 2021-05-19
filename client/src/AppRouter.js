@@ -7,7 +7,7 @@ import MainPage from "./components/MainPage/MainPage";
 
 function AppRouter() {
   const dispatch = useDispatch();
-  const logoutUrl = `${process.env.REACT_APP_SERVER_HOME_URL}:${process.env.REACT_APP_SERVER_PORT}/auth/logout`
+  const logoutUrl = `/auth/logout`
   const app = useSelector(state => state.app)
   useEffect(() => {
     dispatch(checkAuth())
