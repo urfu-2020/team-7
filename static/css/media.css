@@ -4,9 +4,33 @@
         margin-bottom: 0;
     }
 }
+
 @media screen and (max-width: 600px) {
+    .chat-box__box {
+        padding: 10px;  
+    }
+    .main-window__header {
+        grid-column: auto;
+    }
+    .main-window__contacts-container,
+    .main-window__search-container,
+    .main-window__chats-container {
+        position: relative;
+        transition: left 0.5s;
+        left: -100vw;
+    }
+    .header__back-button {
+        display: flex;
+    }
+    #back-check:checked ~ .content-box .main-window__contacts-container,
+    #back-check:checked ~ .content-box .main-window__search-container {
+        left: 0px;
+    }
+    #back-check:checked ~ .content-box .main-window__chats-container {
+        left: 100vw;
+    }
     .main-window {
-        grid-template-columns: 100vw 0;
+          grid-template-columns: 100vw 100vw;
     }
     .main-window__chat-select-message {
         display: none;
@@ -17,5 +41,5 @@
     .header__menu-button {
         margin-right: 15px;
         margin-left: 0;
-    }
+    }   
 }
