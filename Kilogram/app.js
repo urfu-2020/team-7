@@ -32,12 +32,13 @@ app.use(cors({
 }));
 app.use(express.json());
 
-require('./routes')(app);
-
 // SERVE STATIC REACT FILES
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
+  const staticPath = path.join(__dirname, '..', 'client', 'build');
+  app.use(express.static(staticPath));
 }
+
+require('./routes')(app);
 
 // DB SETUP
 const start = async () => {
