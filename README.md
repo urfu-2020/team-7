@@ -25,11 +25,11 @@
 We are using npm scripts to run our app, so...
 > To run application in **debug** mode use
 >```bash
->npm run start
+>npm run startd
 >```
 > To run application in **production** mode use
 >```bash
->npm run startp
+>npm run start
 >```
 > To run linters use
 >```bash

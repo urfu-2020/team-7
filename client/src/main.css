@@ -89,6 +89,7 @@ code {
 .header__back-button:hover {
     background: var(--bg-header-hover);
 }
+
 .flex-filler {
     flex-grow: 99;
 }
