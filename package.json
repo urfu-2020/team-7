@@ -1,6 +1,6 @@
 {
   "name": "Kilogram",
-  "version": "1.0.0-alpha.1",
+  "version": "2.0.0",
   "devDependencies": {
     "dotenv": "^8.2.0",
     "eslint": "^7.23.0",
@@ -17,6 +17,10 @@
     "stylelint-config-standard": "^21.0.0",
     "stylelint-order": "^4.1.0",
     "stylelint-prettier": "^1.2.0"
+  },
+  "engines": {
+    "node": "15.14.0",
+    "npm": "7.7.6"
   },
   "husky": {
     "hooks": {
@@ -40,7 +44,8 @@
     "lint": "npm run lint:css & npm run lint:js",
     "startd": "cd Kilogram && nodemon -r dotenv/config app.js",
     "start": "cd Kilogram && NODE_ENV=production node app.js",
-    "clean": "rimraf node_modules/"
+    "clean": "rimraf node_modules/",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "config": "^3.3.6",

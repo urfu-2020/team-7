@@ -1,5 +1,5 @@
 export async function fetchAuth () {
-  const url = `${process.env.REACT_APP_SERVER_HOME_URL}:${process.env.REACT_APP_SERVER_PORT}/auth/login/success`
+  const url = `/auth/login/success`
   return await fetch(url, {
     method: "GET",
     credentials: "include",
