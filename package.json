@@ -20,11 +20,6 @@
     "stylelint-prettier": "^1.2.0",
     "surge": "^0.23.0"
   },
-  "git": {
-    "scripts": {
-      "pre-push": "surge --project ./ --domain kilogram-team7.surge.sh"
-    }
-  },
   "engines": {
     "node": "15.14.0",
     "npm": "7.7.6"
