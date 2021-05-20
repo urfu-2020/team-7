@@ -1,12 +1,11 @@
 const { Sequelize } = require('sequelize');
-const { getUserById } = require('../api/jsons');
 const { User, Chat } = require('../models/models');
 
 async function getAllContacts() {
   return User.findAll({ raw: true, attributes: ['name', 'username'] });
 }
 
-async function getAllChats(req, res, next) {
+async function getAllChats(req, res) {
   try {
     const { id } = req.params;
     // Get all chats
@@ -47,6 +46,7 @@ async function getAllChats(req, res, next) {
           ],
         });
         contacts.add(user.id);
+        chat.user = user;
       }
     }
     // Get rest contacts
