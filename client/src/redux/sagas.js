@@ -14,4 +14,3 @@ function* sagaAuthWorker () {
     yield put({type: APP_LOGIN_USER, payload})
   }
 }
-
