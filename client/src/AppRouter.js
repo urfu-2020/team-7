@@ -11,7 +11,7 @@ function AppRouter() {
   const app = useSelector(state => state.app)
   useEffect(() => {
     dispatch(checkAuth())
-  })
+  }, [])
 
   return (
     <Router>
