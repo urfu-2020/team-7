@@ -1,4 +1,8 @@
 const express = require('express');
+
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 const config = require('config');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
@@ -10,9 +14,6 @@ const path = require('path');
 // eslint-disable-next-line no-unused-vars
 const passportSetup = require('./config/passport-setup');
 const sequelize = require('./db');
-
-// CREATING APP
-const app = express();
 
 // MIDDLEWARES
 app.use(
@@ -40,12 +41,24 @@ if (process.env.NODE_ENV === 'production') {
 
 require('./routes')(app);
 
+// SOCKET SETUP
+const users = {};
+io.on('connection', (socket) => {
+  users[socket.id] = null;
+  socket.on('setId', (id) => {
+    users[socket.id] = id;
+  });
+  socket.on('disconnect', () => {
+    delete users[socket.id];
+  });
+});
+
 // DB SETUP
 const start = async () => {
   try {
     await sequelize.authenticate();
     await sequelize.sync();
-    app.listen(process.env.PORT || config.get('port'));
+    server.listen(process.env.PORT || config.get('port'));
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);

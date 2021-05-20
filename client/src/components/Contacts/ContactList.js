@@ -19,13 +19,14 @@ function ContactList() {
         {chats.chats.map((el) => {
           return (
             el.type === 'DIALOG'
-              ? <Contact username={el.user.username} name={el.user.name} key={`DIALOG${el.user.id}`} />
-              : <ChatBar name={el.name} key={`${el.type}${el.id}`}/>
+              ? <Contact username={el.user.username} name={el.user.name} key={`DIALOG${el.user.id}`}
+                         type={el.type} id={el.id}/>
+              : <ChatBar name={el.name} key={`${el.type}${el.id}`} type={el.type} id={el.id} owner={el.owner}/>
         )
         })}
         {/* eslint-disable-next-line array-callback-return */}
         {chats.users.map(el => {
-          return (<Contact username={el.username} name={el.name} key={`USER${el.id}`}/>)
+          return (<Contact username={el.username} name={el.name} key={`USER${el.id}`} type="USER" id={el.id}/>)
         })}
       </ul>
     </section>
