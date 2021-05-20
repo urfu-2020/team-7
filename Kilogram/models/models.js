@@ -8,6 +8,31 @@ const User = sequelize.define('user', {
   role: { type: DataTypes.STRING, defaultValue: 'USER' },
 });
 
+const Chat = sequelize.define('chat', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  type: { type: DataTypes.STRING, defaultValue: 'DIALOG' },
+  name: { type: DataTypes.STRING, defaultValue: null },
+  owner: { type: DataTypes.INTEGER, defaultValue: null },
+});
+
+const Message = sequelize.define('message', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  content: { type: DataTypes.TEXT, allowNull: false },
+});
+
+const UserChat = sequelize.define('user_chat', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+});
+
+User.hasMany(Message);
+Message.belongsTo(User);
+
+Chat.belongsToMany(User, { through: UserChat });
+User.belongsToMany(Chat, { through: UserChat });
+
 module.exports = {
   User,
+  Chat,
+  Message,
+  UserChat,
 };
