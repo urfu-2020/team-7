@@ -1,8 +1,15 @@
 import React from 'react';
+import {useDispatch} from "react-redux";
+import {fetchMessages} from "../../requests/messages";
 
 function SideTab(props) {
+  const dispatch = useDispatch();
+  const handler = (e) => {
+    e.preventDefault();
+    dispatch(fetchMessages(props.type, props.id, props.owner))
+  }
   return (
-    <li className="contacts__contact contact">
+    <li className="contacts__contact contact" onClick={handler}>
       <div className="contact__picture-wrap picture-wrap">
         {props.picture
           ? <img src={props.picture} alt={`${props.topLine} chat`} className="contact__picture" />

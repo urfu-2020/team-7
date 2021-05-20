@@ -78,7 +78,6 @@ code {
     padding: 0 15px;
 }
 .header__menu-button {
-    margin-left: 15px;
     cursor: pointer;
 }
 .header__back-button {
@@ -300,7 +299,7 @@ code {
     display: grid;
     grid-template-columns: 1fr 50px;
     width: 100%;
-    margin-top: 1em;
+    margin-top: 1.3em;
 }
 .message__time {
     color: var(--light-darker);

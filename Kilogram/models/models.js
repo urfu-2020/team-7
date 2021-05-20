@@ -27,6 +27,9 @@ const UserChat = sequelize.define('user_chat', {
 User.hasMany(Message);
 Message.belongsTo(User);
 
+Chat.hasMany(Message);
+Message.belongsTo(Chat);
+
 Chat.belongsToMany(User, { through: UserChat });
 User.belongsToMany(Chat, { through: UserChat });
 
