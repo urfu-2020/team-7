@@ -1,9 +1,10 @@
 import {
+  ADD_MESSAGE, CHANGE_USER_TO_DIALOG,
   FETCH_CHATS_FAILURE,
   FETCH_CHATS_REQUEST,
   FETCH_CHATS_SUCCESS, FETCH_MESSAGES_FAILURE,
   FETCH_MESSAGES_START, FETCH_MESSAGES_SUCCESS,
-  REQUEST_AUTH
+  REQUEST_AUTH, UPDATE_USER_TO_CHAT
 } from "./types";
 
 export function checkAuth() {
@@ -40,5 +41,26 @@ export function fetchMessagesSuccess(messages) {
   return {
     type: FETCH_MESSAGES_SUCCESS,
     payload: messages
+  }
+}
+
+export function receiveMessage(data) {
+  return {
+    type: ADD_MESSAGE,
+    payload: data
+  }
+}
+
+export function updateUserToChats(id, data) {
+  return {
+    type: UPDATE_USER_TO_CHAT,
+    payload: {...data, selfId: id}
+  }
+}
+
+export function changeUserToDialog(load) {
+  return {
+    type: CHANGE_USER_TO_DIALOG,
+    payload: load
   }
 }

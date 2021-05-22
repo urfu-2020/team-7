@@ -18,8 +18,8 @@ function MainPage() {
     <div className="main-window">
       <Header />
       <SearchBar />
-      <ContactList />
-      <ChatWindow />
+      <ContactList socket={socket}/>
+      <ChatWindow socket={socket}/>
     </div>
   );
 }

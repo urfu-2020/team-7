@@ -4,13 +4,19 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchChats} from "../../requests/chats";
 import {getChats, getUser} from "../../redux/selectors";
 import ChatBar from "./ChatBar";
+import {changeUserToDialog, updateUserToChats} from "../../redux/actions";
 
-function ContactList() {
+function ContactList(props) {
+  const socket = props.socket;
   const dispatch = useDispatch();
   const user = useSelector(getUser)
   const chats = useSelector(getChats)
   useEffect(() => {
     dispatch(fetchChats(user.id))
+    socket.on('replaceUserToChat', (data) => {
+      dispatch(updateUserToChats(user.id, data));
+      dispatch(changeUserToDialog(data));
+    })
   }, [])
   return (
     <section className="main-window__contacts-container">

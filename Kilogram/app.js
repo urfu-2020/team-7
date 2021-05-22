@@ -14,6 +14,7 @@ const path = require('path');
 // eslint-disable-next-line no-unused-vars
 const passportSetup = require('./config/passport-setup');
 const sequelize = require('./db');
+const { setupIO } = require('./socketSetup');
 
 // MIDDLEWARES
 app.use(
@@ -42,16 +43,7 @@ if (process.env.NODE_ENV === 'production') {
 require('./routes')(app);
 
 // SOCKET SETUP
-const users = {};
-io.on('connection', (socket) => {
-  users[socket.id] = null;
-  socket.on('setId', (id) => {
-    users[socket.id] = id;
-  });
-  socket.on('disconnect', () => {
-    delete users[socket.id];
-  });
-});
+setupIO(io);
 
 // DB SETUP
 const start = async () => {

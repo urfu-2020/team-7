@@ -1,13 +1,39 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
+import {useSelector} from "react-redux";
+import {getMessages, getUser} from "../../redux/selectors";
 
 function SendArea(props) {
+  const socket = props.socket;
+  const [message, setMessage] = useState('');
+  const messages = useSelector(getMessages);
+  const user = useSelector(getUser);
+  const inputRef = useRef(null);
+  const sendHandler = (e) => {
+    e.preventDefault();
+    if (message.length === 0) return
+    const data = messages.type === 'USER'
+      ? {type: messages.type, userTo: messages.id, userFrom: user, content: message}
+      : {type: messages.type, chatId: messages.id, userFrom: user, content: message}
+    socket.emit('sendMessage', data)
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
+  }
+  const keyPressHandler = (e) => {
+    if (e.key === 'Enter') {
+      if (!e.shiftKey) {
+        sendHandler(e);
+      }
+    }
+  }
   return (
     <div className="chat-box__send-area">
       <label htmlFor="chat-message" className="chat-box__input-wrap">
         <textarea name="chat-message" id="chat-message" className="chat-box__message-input"
-                  placeholder="Write a message..."/>
+                  placeholder="Write a message..." onChange={e => setMessage(e.target.value)}
+                  ref={inputRef} onKeyPress={keyPressHandler}/>
       </label>
-      <div className="chat-box__send-button">
+      <div className="chat-box__send-button" onClick={sendHandler}>
         <i className="far fa-paper-plane"/>
       </div>
     </div>

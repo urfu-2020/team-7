@@ -17,6 +17,7 @@ const Chat = sequelize.define('chat', {
 
 const Message = sequelize.define('message', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  type: { type: DataTypes.STRING, allowNull: false, defaultValue: 'TEXT' },
   content: { type: DataTypes.TEXT, allowNull: false },
 });
 
