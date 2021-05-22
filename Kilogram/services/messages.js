@@ -11,7 +11,7 @@ async function getAllMessages(req, res) {
         { model: User, raw: true, attributes: ['name', 'username'] },
       ],
       order: [
-        ['createdAt', 'DESC'],
+        ['createdAt', 'ASC'],
       ],
     });
     res.status(200).json(messages);

@@ -5,9 +5,10 @@ import Message from "./Message";
 function MessageGroup(props) {
   const messages = props.messages || [];
   const messageList = messages.map((message, i) => {
-    const date = new Date(message.createdAt);
+    const el = messages[messages.length - 1 - i];
+    const date = new Date(el.createdAt);
     const time = `${date.getHours()}:${date.getMinutes()}`;
-    return (<Message key={i.toString()} content={message.content} time={time} />)
+    return (<Message key={i.toString()} content={el.content} time={time} />)
   })
   return (
     <div className="chat-box__message-group message-group">

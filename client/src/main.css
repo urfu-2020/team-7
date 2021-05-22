@@ -311,6 +311,7 @@ code {
 }
 .message__content {
     padding-right: 10px;
+    white-space: pre-line;
 }
 #back-check:checked ~ .content-box .header__back-button {
     display: flex;
