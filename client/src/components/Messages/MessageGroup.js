@@ -7,7 +7,7 @@ function MessageGroup(props) {
   const messageList = messages.map((message, i) => {
     const el = messages[messages.length - 1 - i];
     const date = new Date(el.createdAt);
-    const time = `${date.getHours()}:${date.getMinutes()}`;
+    const time = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
     return (<Message key={i.toString()} content={el.content} time={time} />)
   })
   return (

@@ -310,8 +310,11 @@ code {
     object-fit: cover;
 }
 .message__content {
+    width: 100%;
+    min-width: 0;
     padding-right: 10px;
     white-space: pre-line;
+    word-wrap: break-word;
 }
 #back-check:checked ~ .content-box .header__back-button {
     display: flex;

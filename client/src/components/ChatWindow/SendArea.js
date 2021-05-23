@@ -29,7 +29,7 @@ function SendArea(props) {
     <div className="chat-box__send-area">
       <label htmlFor="chat-message" className="chat-box__input-wrap">
         <textarea name="chat-message" id="chat-message" className="chat-box__message-input"
-                  placeholder="Write a message..." onChange={e => setMessage(e.target.value)}
+                  placeholder="Write a message..." onChange={e => setMessage(e.target.value.trim())}
                   ref={inputRef} onKeyPress={keyPressHandler}/>
       </label>
       <div className="chat-box__send-button" onClick={sendHandler}>
