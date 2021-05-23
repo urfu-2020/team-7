@@ -2,17 +2,16 @@ const {
   Chat, User, Message, UserChat,
 } = require('./models/models');
 
-const socketToRooms = {};
 const idsToSockets = {};
 const socketsToIds = {};
 
 function setupIO(io) {
   io.on('connection', (socket) => {
-    socketToRooms[socket.id] = [];
     // GETTING USER ID
     socket.on('setId', async (id) => {
       socketsToIds[socket.id] = id;
-      idsToSockets[id] = socket.id;
+      if (!idsToSockets[id]) idsToSockets[id] = [];
+      idsToSockets[id].push(socket.id);
       const ids = await UserChat.findAll({
         attributes: ['chatId'],
         raw: true,
@@ -22,76 +21,96 @@ function setupIO(io) {
       });
       ids.forEach((chat) => {
         const roomName = `CHAT${chat.chatId}`;
-        socketToRooms[socket.id].push(roomName);
         socket.join(roomName);
       });
     });
-
     // ON GETTING MESSAGE FROM CLIENT
+    // type, content, from: {id, name, username}, to: {type, id}
     socket.on('sendMessage', async (message) => {
       let c;
       // IF MSG IS FIRST...NEED TO CREATE A CHAT...OR FIND ALREADY CREATED
-      if (message.type === 'USER') {
-        c = await Chat.findOne({
+      if (message.to.type === 'USER') {
+        // FIND RECIPIENT DIALOGS
+        const ids = await Chat.findAll({
           raw: true,
           where: {
             type: 'DIALOG',
           },
           include: [
-            { model: User, where: { id: message.userFrom.id } },
-            { model: User, where: { id: message.userTo } },
+            {
+              model: User, required: true, where: { id: message.to.id },
+            },
           ],
-        });
-        if (!c) {
-          c = await Chat.create();
-          await c.setUsers([message.userFrom.id, message.userTo]);
-          c = c.get({ plain: true });
-          const chatName = `CHAT${c.id}`;
-          socket.join(chatName);
-          if (idsToSockets[message.userTo]) {
-            io.sockets.connected[idsToSockets[message.userTo]].join(chatName);
-          }
-          const users = await User.findAll({
+        }).then((r) => r.map((o) => o.id));
+        // FIND SENDERS DIALOG WITH SAME ID
+        c = ids.length === 0
+          ? null
+          : await Chat.findOne({
             raw: true,
+            where: {
+              id: ids,
+            },
             include: [
-              {
-                model: Chat,
-                where: {
-                  id: c.id,
-                },
-              },
+              { model: User, required: true, where: { id: message.from.id } },
             ],
           });
+        if (!c) {
+          c = await Chat.create({});
+          await c.setUsers([message.to.id, message.from.id]);
+          c = c.get({ plain: true });
+          const chatName = `CHAT${c.id}`;
+          // ADDING SENDER AND RECEIVER IN ROOM IF THEY'RE ONLINE
+          if (idsToSockets[message.from.id]) {
+            idsToSockets[message.from.id].forEach((socketId) => {
+              io.sockets.sockets.get(socketId).join(chatName);
+            });
+          }
+          if (idsToSockets[message.to.id]) {
+            idsToSockets[message.to.id].forEach((socketId) => {
+              io.sockets.sockets.get(socketId).join(chatName);
+            });
+          }
+          // GET INFO ABOUT THIS USERS TO SEND TO CLIENT
+          const users = await User.findAll({
+            raw: true,
+            where: {
+              id: [message.to.id, message.from.id],
+            },
+          });
+          // TRIGGER CLIENTS TO UPDATE STATE
           io.to(chatName).emit('replaceUserToChat', {
             users,
             chat: c,
           });
         }
+        // CHAT ALREADY CREATED
       } else {
-        c = await Chat.findByPk(message.chatId);
+        c = await Chat.findByPk(message.to.id);
         c = c.get({ plain: true });
       }
-      // CREATE MESSAGE, APPEND TO CHAT
       const m = await Message.create({ content: message.content });
       await m.setChat(c.id);
-      await m.setUser(message.userFrom.id);
+      await m.setUser(message.from.id);
       // TODO: SEND USER TO UPDATE CHAT
-      io.in(`CHAT${c.id}`).emit('receiveMessage', { message: m, user: message.userFrom });
+      io.in(`CHAT${c.id}`).emit('receiveMessage', { message: m, user: message.from });
     });
 
     // REMOVING SOCKET
     socket.on('disconnect', () => {
       if (socketsToIds[socket.id]) {
         const id = socketsToIds[socket.id];
-        if (idsToSockets[id]) delete idsToSockets[id];
+        if (idsToSockets[id]) {
+          const index = idsToSockets[id].indexOf(socket.id);
+          if (index > -1) {
+            idsToSockets[id].splice(index, 1);
+          }
+          if (idsToSockets[id].length === 0) {
+            delete idsToSockets[id];
+          }
+        }
         delete socketsToIds[socket.id];
       }
-      if (socketToRooms[socket.id]) {
-        socketToRooms[socket.id].forEach((room) => {
-          socket.leave(room);
-        });
-        delete socketToRooms[socket.id];
-      }
+      socket.leaveAll();
     });
   });
 }
