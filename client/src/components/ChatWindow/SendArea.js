@@ -11,9 +11,8 @@ function SendArea(props) {
   const sendHandler = (e) => {
     e.preventDefault();
     if (message.length === 0) return
-    const data = messages.type === 'USER'
-      ? {type: messages.type, userTo: messages.id, userFrom: user, content: message}
-      : {type: messages.type, chatId: messages.id, userFrom: user, content: message}
+    // type, content, from: {id, name, username}, to: {type, id}
+    const data = {type: 'TEXT', to: {type: messages.type, id: messages.id}, from: user, content: message};
     socket.emit('sendMessage', data)
     if (inputRef.current) {
       inputRef.current.value = '';
