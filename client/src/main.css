@@ -19,11 +19,21 @@ code {
     --green-light: #c4e7e5;
     --dark-green: #2b7a78;
     --dark: #17252a;
+    --dark-2: #0f2c2a;
+    --dark-3: #143d3b;
+    --dark-4: #174644;
     --bg-color: var(--light);
     --bg-messanger: var(--white);
     --bg-header: var(--green);
     --bg-header-hover: var(--dark-green);
     --header-text: var(--white);
+    --second-color: var(--white);
+    --contacts-color: black;
+    --contacts-color-hover: var(--white-darker);
+    --message-content: black;
+    --input-bg: var(--light);
+    --input-holder: var(--light-darker);
+    --input-text: black;
 
     font-family: "Montserrat", sans-serif;
 }
@@ -110,7 +120,7 @@ code {
     width: 100%;
     height: 40px;
     color: var(--light-darker);
-    background: var(--bg-color);
+    background: var(--input-bg);
     border-radius: 5px;
 }
 .search__label {
@@ -119,9 +129,14 @@ code {
 }
 .search__search-bar {
     flex-grow: 1;
+    color: var(--input-text);
+    background: var(--input-bg);
     background-color: transparent;
     border: none;
     outline: none;
+}
+.search__search-bar::placeholder {
+    color: var(--input-holder);
 }
 .search__clear {
     padding: 0 15px 0 6px;
@@ -137,9 +152,10 @@ code {
 .contacts__contact {
     width: 100%;
     height: 60px;
+    color: var(--contacts-color);
 }
 .contacts__contact:hover {
-    background: var(--white-darker);
+    background: var(--contacts-color-hover);
 }
 .contact {
     display: flex;
@@ -249,10 +265,15 @@ code {
     width: 100%;
     height: 40px;
     padding: 12px 15px;
+    color: var(--input-text);
     background: transparent;
+    background: var(--input-bg);
     border: none;
     outline: none;
     resize: none;
+}
+.chat-box__message-input::placeholder {
+    color: var(--input-holder);
 }
 .chat-box__send-button {
     margin-left: 15px;
@@ -314,6 +335,7 @@ code {
     width: 100%;
     min-width: 0;
     padding-right: 10px;
+    color: var(--message-content);
     white-space: pre-line;
     word-wrap: break-word;
 }

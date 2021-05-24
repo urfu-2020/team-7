@@ -4,6 +4,9 @@ import Login from './components/Login/Login.js';
 import {useDispatch, useSelector} from "react-redux";
 import {checkAuth} from "./redux/actions";
 import MainPage from "./components/MainPage/MainPage";
+import {getTheme} from "./redux/selectors";
+import {DarkTheme} from "./themes/dark";
+import { LightTheme } from "./themes/light"
 
 function AppRouter() {
   const dispatch = useDispatch();
@@ -12,6 +15,11 @@ function AppRouter() {
   useEffect(() => {
     dispatch(checkAuth())
   }, [])
+  const theme = useSelector(getTheme);
+  const rules = theme === 'DARK' ? DarkTheme : LightTheme;
+  rules.forEach(rule => {
+    document.documentElement.style.setProperty(rule.name, rule.value);
+  })
 
   return (
     <Router>

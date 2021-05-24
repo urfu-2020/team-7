@@ -7,7 +7,7 @@
     width: calc(100vw - 40px);
     max-width: 420px;
     padding: 1em 2em;
-    color: var(--white);
+    color: var(--second-color);
     font-weight: bold;
     font-size: 2em;
     background: var(--green);

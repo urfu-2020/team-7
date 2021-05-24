@@ -4,7 +4,7 @@ import {
   FETCH_CHATS_REQUEST,
   FETCH_CHATS_SUCCESS, FETCH_MESSAGES_FAILURE,
   FETCH_MESSAGES_START, FETCH_MESSAGES_SUCCESS,
-  REQUEST_AUTH, UPDATE_CHAT_TO_UNREAD, UPDATE_USER_TO_CHAT
+  REQUEST_AUTH, SWITCH_THEME, UPDATE_CHAT_TO_UNREAD, UPDATE_USER_TO_CHAT
 } from "./types";
 
 export function checkAuth() {
@@ -69,5 +69,18 @@ export function setUnread(chatId) {
   return {
     type: UPDATE_CHAT_TO_UNREAD,
     payload: chatId
+  }
+}
+
+export function switchTheme(theme) {
+  return {
+    type: SWITCH_THEME,
+    payload: theme
+  }
+}
+
+export function switchThemeChain(id, theme) {
+  return function(dispatch) {
+    dispatch(switchTheme(theme))
   }
 }
