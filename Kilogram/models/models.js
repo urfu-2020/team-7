@@ -6,6 +6,7 @@ const User = sequelize.define('user', {
   username: { type: DataTypes.STRING, unique: true },
   name: { type: DataTypes.STRING },
   role: { type: DataTypes.STRING, defaultValue: 'USER' },
+  theme: { type: DataTypes.STRING },
 });
 
 const Chat = sequelize.define('chat', {
