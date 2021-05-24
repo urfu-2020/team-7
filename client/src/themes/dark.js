@@ -9,4 +9,7 @@ export const DarkTheme = [
   {name: '--input-bg', value: 'var(--dark-4)'},
   {name: '--input-holder', value: 'var(--light-darker)'},
   {name: '--input-text', value: 'var(--light)'},
+  {name: '--menu-bg', value: 'var(--dark-green-2)'},
+  {name: '--menu-hover', value: 'var(--dark-green)'},
+  {name: '--menu-color', value: 'var(--white)'},
 ]

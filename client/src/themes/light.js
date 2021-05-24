@@ -9,4 +9,7 @@ export const LightTheme = [
   {name: '--input-bg', value: 'var(--light)'},
   {name: '--input-holder', value: 'var(--light-darker)'},
   {name: '--input-text', value: 'black'},
+  {name: '--menu-bg', value: 'var(--white)'},
+  {name: '--menu-hover', value: 'var(--white-darker)'},
+  {name: '--menu-color', value: 'black'},
 ]

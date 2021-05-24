@@ -22,6 +22,7 @@ code {
     --dark-2: #0f2c2a;
     --dark-3: #143d3b;
     --dark-4: #174644;
+    --dark-green-2: #236965;
     --bg-color: var(--light);
     --bg-messanger: var(--white);
     --bg-header: var(--green);
@@ -34,6 +35,9 @@ code {
     --input-bg: var(--light);
     --input-holder: var(--light-darker);
     --input-text: black;
+    --menu-bg: var(--white);
+    --menu-hover: var(--white-darker);
+    --menu-color: black;
 
     font-family: "Montserrat", sans-serif;
 }
