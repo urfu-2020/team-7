@@ -17,7 +17,7 @@ export const appReducer = (state = initialState, action) => {
       if (state.logged) return {...state, logged: false, user: null}
       return state
     case SWITCH_THEME:
-      return {...state, theme: action.payload}
+      return {...state, theme: action.payload, user: {...state.user, theme: action.payload}}
     default: return state
   }
 }

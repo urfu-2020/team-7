@@ -6,6 +6,7 @@ const io = require('socket.io')(server);
 const config = require('config');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
 // eslint-disable-next-line no-unused-vars
 const expressSession = require('express-session');
 const cors = require('cors');
@@ -25,6 +26,8 @@ app.use(
   }),
 );
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors({

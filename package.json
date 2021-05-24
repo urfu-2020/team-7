@@ -52,6 +52,7 @@
     "startdp": "cd Kilogram && NODE_ENV=production nodemon -r dotenv/config app.js"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "config": "^3.3.6",
     "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",

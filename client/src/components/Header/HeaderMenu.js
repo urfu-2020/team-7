@@ -2,9 +2,9 @@ import React from 'react';
 import './headermenu.css';
 import {useDispatch, useSelector} from "react-redux";
 import {getTheme, getUser} from "../../redux/selectors";
-import {switchThemeChain} from "../../redux/actions";
+import {switchThemeChain} from "../../requests/themes";
 
-function HeaderMenu(props) {
+function HeaderMenu() {
   const theme = useSelector(getTheme);
   const dispatch = useDispatch();
   const user = useSelector(getUser)

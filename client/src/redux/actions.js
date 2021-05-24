@@ -78,9 +78,3 @@ export function switchTheme(theme) {
     payload: theme
   }
 }
-
-export function switchThemeChain(id, theme) {
-  return function(dispatch) {
-    dispatch(switchTheme(theme))
-  }
-}
