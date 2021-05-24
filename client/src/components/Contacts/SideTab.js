@@ -9,7 +9,7 @@ function SideTab(props) {
     dispatch(fetchMessages(props.type, props.id, props.owner))
   }
   return (
-    <li className="contacts__contact contact" onClick={handler}>
+    <li className={`contacts__contact contact ${props.unread ? "contacts__contact_unread" : ""}`} onClick={handler}>
       <div className="contact__picture-wrap picture-wrap">
         {props.picture
           ? <img src={props.picture} alt={`${props.topLine} chat`} className="contact__picture" />

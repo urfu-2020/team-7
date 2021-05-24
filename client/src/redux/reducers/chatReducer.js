@@ -1,4 +1,10 @@
-import {FETCH_CHATS_FAILURE, FETCH_CHATS_REQUEST, FETCH_CHATS_SUCCESS, UPDATE_USER_TO_CHAT} from "../types";
+import {
+  FETCH_CHATS_FAILURE,
+  FETCH_CHATS_REQUEST,
+  FETCH_CHATS_SUCCESS,
+  UPDATE_CHAT_TO_UNREAD,
+  UPDATE_USER_TO_CHAT
+} from "../types";
 
 const initialState = {
   chats: [],
@@ -27,6 +33,13 @@ export const chatReducer = (state = initialState, action) => {
       const mate = mates.length > 0 ? mates[0] : null;
       const chats = state.chats.concat([{...action.payload.chat, user: mate}]);
       return {...state, users, chats}
+    }
+    case UPDATE_CHAT_TO_UNREAD: {
+      return {...state, chats: state.chats.map(chat => {
+        return chat.id === action.payload
+          ? {...chat, unread: true}
+          : chat
+        })}
     }
     default: return state
   }

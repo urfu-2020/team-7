@@ -6,7 +6,7 @@ function Contact(props) {
   const topLine = props.name || props.username;
   const bottomLine = `@${props.username}`;
   return (<SideTab picture={profilePath} topLine={topLine} bottomLine={bottomLine}
-                   type={props.type} id={props.id} owner={null}/>)
+                   type={props.type} id={props.id} owner={null} unread={props.unread}/>)
 }
 
 export default Contact;

@@ -16,6 +16,7 @@ code {
     --light: #def2f1;
     --light-darker: #bdcecd;
     --green: #3aafa9;
+    --green-light: #c4e7e5;
     --dark-green: #2b7a78;
     --dark: #17252a;
     --bg-color: var(--light);
@@ -318,4 +319,7 @@ code {
 }
 #back-check:checked ~ .content-box .header__back-button {
     display: flex;
+}
+.contacts__contact_unread {
+    background: var(--green-light);
 }

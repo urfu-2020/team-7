@@ -27,7 +27,10 @@ export function fetchChats(id) {
     dispatch(fetchChatsRequest())
     axios.get(`/api/chats/getAllChats/${id}`, {withCredentials: true})
       .then(r => {
-        dispatch(fetchChatsSuccess(r.data))
+        dispatch(fetchChatsSuccess({users: r.data.users, chats: r.data.chats.map(chat => {
+          chat.unread = false;
+          return chat;
+          })}))
       })
       .catch(e =>{
         dispatch(fetchChatsFailure(e.message))
