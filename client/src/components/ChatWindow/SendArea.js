@@ -8,9 +8,11 @@ function SendArea(props) {
   const messages = useSelector(getMessages);
   const user = useSelector(getUser);
   const inputRef = useRef(null);
+  const [fired, setFired] = useState(false);
   const sendHandler = (e) => {
     e.preventDefault();
-    if (message.length === 0) return
+    if (message.length === 0 || fired) return
+    setFired(true)
     // type, content, from: {id, name, username}, to: {type, id}
     const data = {type: 'TEXT', to: {type: messages.type, id: messages.id}, from: user, content: message};
     socket.emit('sendMessage', data)
@@ -30,7 +32,7 @@ function SendArea(props) {
       <label htmlFor="chat-message" className="chat-box__input-wrap">
         <textarea name="chat-message" id="chat-message" className="chat-box__message-input"
                   placeholder="Write a message..." onChange={e => setMessage(e.target.value.trim())}
-                  ref={inputRef} onKeyPress={keyPressHandler}/>
+                  ref={inputRef} onKeyPress={keyPressHandler} onKeyUp={e => setFired(false)}/>
       </label>
       <div className="chat-box__send-button" onClick={sendHandler}>
         <i className="far fa-paper-plane"/>
