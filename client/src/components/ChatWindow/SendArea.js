@@ -11,6 +11,7 @@ function SendArea(props) {
   const [fired, setFired] = useState(false);
   const sendHandler = (e) => {
     e.preventDefault();
+
     if (message.length === 0 || fired) return
     setFired(true)
     // type, content, from: {id, name, username}, to: {type, id}
@@ -18,6 +19,7 @@ function SendArea(props) {
     socket.emit('sendMessage', data)
     if (inputRef.current) {
       inputRef.current.value = '';
+      setMessage('');
     }
   }
   const keyPressHandler = (e) => {
@@ -27,12 +29,17 @@ function SendArea(props) {
       }
     }
   }
+  const keyUpHandler = (e) => {
+    if (e.key === 'Enter') {
+      setFired(false);
+    }
+  }
   return (
     <div className="chat-box__send-area">
       <label htmlFor="chat-message" className="chat-box__input-wrap">
         <textarea name="chat-message" id="chat-message" className="chat-box__message-input"
                   placeholder="Write a message..." onChange={e => setMessage(e.target.value.trim())}
-                  ref={inputRef} onKeyPress={keyPressHandler} onKeyUp={e => setFired(false)}/>
+                  ref={inputRef} onKeyPress={keyPressHandler} onKeyUp={e => keyUpHandler(e)}/>
       </label>
       <div className="chat-box__send-button" onClick={sendHandler}>
         <i className="far fa-paper-plane"/>
