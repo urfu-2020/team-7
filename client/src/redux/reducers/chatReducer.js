@@ -1,4 +1,5 @@
 import {
+  ADD_CHAT,
   FETCH_CHATS_FAILURE,
   FETCH_CHATS_REQUEST,
   FETCH_CHATS_SUCCESS,
@@ -40,6 +41,10 @@ export const chatReducer = (state = initialState, action) => {
           ? {...chat, unread: true}
           : chat
         })}
+    }
+    case ADD_CHAT: {
+      const chats = state.chats.concat([action.payload])
+      return {...state, chats}
     }
     default: return state
   }

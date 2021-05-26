@@ -7,9 +7,10 @@ export const LightTheme = [
   {name: '--contacts-color-hover', value: 'var(--white-darker)'},
   {name: '--message-content', value: 'black'},
   {name: '--input-bg', value: 'var(--light)'},
-  {name: '--input-holder', value: 'var(--light-darker)'},
+  {name: '--input-holder', value: 'var(--light-dark)'},
   {name: '--input-text', value: 'black'},
   {name: '--menu-bg', value: 'var(--white)'},
   {name: '--menu-hover', value: 'var(--white-darker)'},
   {name: '--menu-color', value: 'black'},
+  {name: '--popup-bg', value: 'var(--white)'},
 ]

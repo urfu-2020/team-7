@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchChats} from "../../requests/chats";
 import {getChats, getMessages, getUser} from "../../redux/selectors";
 import ChatBar from "./ChatBar";
-import {changeUserToDialog, setUnread, updateUserToChats} from "../../redux/actions";
+import {addNewChat, changeUserToDialog, setUnread, updateUserToChats} from "../../redux/actions";
 
 function ContactList(props) {
   const socket = props.socket;
@@ -23,6 +23,9 @@ function ContactList(props) {
       if (messages.type !== 'USER' && messages.id === chatId) {
         dispatch(setUnread(data.message.chatId))
       }
+    })
+    socket.on('addChat', (data) => {
+      dispatch(addNewChat(data));
     })
   }, [])
   return (

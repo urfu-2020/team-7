@@ -12,4 +12,5 @@ export const DarkTheme = [
   {name: '--menu-bg', value: 'var(--dark-green-2)'},
   {name: '--menu-hover', value: 'var(--dark-green)'},
   {name: '--menu-color', value: 'var(--white)'},
+  {name: '--popup-bg', value: 'var(--dark-green-2)'},
 ]

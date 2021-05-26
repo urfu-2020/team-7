@@ -62,12 +62,12 @@ function setupIO(io) {
           // ADDING SENDER AND RECEIVER IN ROOM IF THEY'RE ONLINE
           if (idsToSockets[message.from.id]) {
             idsToSockets[message.from.id].forEach((socketId) => {
-              io.sockets.sockets.get(socketId).join(chatName);
+              io.of('/').sockets.get(socketId).join(chatName);
             });
           }
           if (idsToSockets[message.to.id]) {
             idsToSockets[message.to.id].forEach((socketId) => {
-              io.sockets.sockets.get(socketId).join(chatName);
+              io.of('/').sockets.get(socketId).join(chatName);
             });
           }
           // GET INFO ABOUT THIS USERS TO SEND TO CLIENT
@@ -91,8 +91,27 @@ function setupIO(io) {
       const m = await Message.create({ content: message.content });
       await m.setChat(c.id);
       await m.setUser(message.from.id);
-      // TODO: SEND USER TO UPDATE CHAT
       io.in(`CHAT${c.id}`).emit('receiveMessage', { message: m, user: message.from });
+    });
+
+    // CHAT CREATION PROCESS
+    socket.on('createChat', async (data) => {
+      const c = await Chat.create({ name: data.name, type: 'GROUP', owner: data.owner });
+      await c.setUsers(data.users);
+      const cPlain = c.get({ plain: true });
+      const chatName = `CHAT${cPlain.id}`;
+      // UPDATING SOCKET INFO
+      data.users.forEach((id) => {
+        if (idsToSockets[id]) {
+          idsToSockets[id].forEach((socketId) => {
+            io.of('/').sockets.get(socketId).join(chatName);
+            // io.sockets.sockets.get(socketId).join(chatName);
+          });
+        }
+        io.to(chatName).emit('addChat', {
+          id: c.id, name: c.name, owner: c.owner, type: c.type,
+        });
+      });
     });
 
     // REMOVING SOCKET
