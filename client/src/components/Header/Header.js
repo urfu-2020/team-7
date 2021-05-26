@@ -16,7 +16,7 @@ function Header(props) {
         <div className="header__menu-button" onClick={handler}>
           <i className="fas fa-bars"/>
         </div>
-        { menuOpen && <HeaderMenu /> }
+        { menuOpen && <HeaderMenu socket={props.socket} /> }
       </div>
       <span className="header__title">Kilogram</span>
       <span className="header__flex-filler flex-filler"/>

@@ -1,10 +1,11 @@
 import {
-  ADD_MESSAGE, CHANGE_USER_TO_DIALOG,
+  ADD_CHAT,
+  ADD_MESSAGE, CHANGE_USER_TO_DIALOG, CLOSE_POPUP,
   FETCH_CHATS_FAILURE,
   FETCH_CHATS_REQUEST,
   FETCH_CHATS_SUCCESS, FETCH_MESSAGES_FAILURE,
   FETCH_MESSAGES_START, FETCH_MESSAGES_SUCCESS,
-  REQUEST_AUTH, SWITCH_THEME, UPDATE_CHAT_TO_UNREAD, UPDATE_USER_TO_CHAT
+  REQUEST_AUTH, SHOW_POPUP, SWITCH_THEME, UPDATE_CHAT_TO_UNREAD, UPDATE_USER_TO_CHAT
 } from "./types";
 
 export function checkAuth() {
@@ -76,5 +77,25 @@ export function switchTheme(theme) {
   return {
     type: SWITCH_THEME,
     payload: theme
+  }
+}
+
+export function closePopup() {
+  return {
+    type: CLOSE_POPUP
+  }
+}
+
+export function showPopup(title, content) {
+  return {
+    type: SHOW_POPUP,
+    payload: {title, content}
+  }
+}
+
+export function addNewChat(data) {
+  return {
+    type: ADD_CHAT,
+    payload: data
   }
 }
