@@ -111,6 +111,25 @@ function setupIO(io) {
         io.to(chatName).emit('addChat', {
           id: c.id, name: c.name, owner: c.owner, type: c.type,
         });
+        io.emit('addNewChannel', {
+          id: c.id, name: c.name, owner: c.owner, type: c.type,
+        });
+      });
+    });
+
+    // CHANNEL CREATION PROCESS
+    socket.on('createChannel', async (data) => {
+      const c = await Chat.create({ name: data.name, type: 'CHANNEL', owner: data.owner });
+      await c.setUsers([data.owner]);
+      const plain = c.get({ plain: true });
+      const chatName = `CHAT${plain.id}`;
+      if (idsToSockets[data.owner]) {
+        idsToSockets[data.owner].forEach((socketId) => {
+          io.of('/').sockets.get(socketId).join(chatName);
+        });
+      }
+      io.to(chatName).emit('addChat', {
+        id: c.id, name: c.name, owner: c.owner, type: c.type,
       });
     });
 

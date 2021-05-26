@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchChats} from "../../requests/chats";
 import {getChats, getMessages, getUser} from "../../redux/selectors";
 import ChatBar from "./ChatBar";
-import {addNewChat, changeUserToDialog, setUnread, updateUserToChats} from "../../redux/actions";
+import {addNewChannel, addNewChat, changeUserToDialog, setUnread, updateUserToChats} from "../../redux/actions";
 
 function ContactList(props) {
   const socket = props.socket;
@@ -27,6 +27,11 @@ function ContactList(props) {
     socket.on('addChat', (data) => {
       dispatch(addNewChat(data));
     })
+    socket.on('addNewChannel', (data) => {
+      if (data.owner !== user.id) {
+        dispatch(addNewChannel(data));
+      }
+    })
   }, [])
   return (
     <section className="main-window__contacts-container">
@@ -40,6 +45,10 @@ function ContactList(props) {
               : <ChatBar name={el.name} key={`${el.type}${el.id}`} type={el.type} id={el.id} owner={el.owner}
                          unread={el.unread}/>
         )
+        })}
+        {chats.channels.map(el => {
+          return (<ChatBar name={el.name} key={`${el.type}${el.id}`} type={el.type} id={el.id} owner={el.owner}
+                           unread={false}/>)
         })}
         {/* eslint-disable-next-line array-callback-return */}
         {chats.users.map(el => {

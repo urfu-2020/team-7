@@ -25,6 +25,7 @@ async function getAllChats(req, res) {
     });
     // Get all teammates from dialogues
     const contacts = new Set();
+    const chatIds = chats.map((chat) => chat.id);
     for (let i = 0; i < chats.length; i += 1) {
       const chat = chats[i];
       if (chat.type === 'DIALOG') {
@@ -58,7 +59,16 @@ async function getAllChats(req, res) {
         },
       },
     });
-    const response = { chats, users };
+    const channels = await Chat.findAll({
+      raw: true,
+      where: {
+        type: 'CHANNEL',
+        id: {
+          [Sequelize.Op.not]: chatIds,
+        },
+      },
+    });
+    const response = { chats, users, channels };
     res.status(200).json(response);
   } catch (err) {
     res.status(500).json(err.message);

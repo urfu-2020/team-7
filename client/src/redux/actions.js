@@ -1,4 +1,5 @@
 import {
+  ADD_CHANNEL,
   ADD_CHAT,
   ADD_MESSAGE, CHANGE_USER_TO_DIALOG, CLOSE_POPUP,
   FETCH_CHATS_FAILURE,
@@ -96,6 +97,13 @@ export function showPopup(title, content) {
 export function addNewChat(data) {
   return {
     type: ADD_CHAT,
+    payload: data
+  }
+}
+
+export function addNewChannel(data) {
+  return {
+    type: ADD_CHANNEL,
     payload: data
   }
 }
