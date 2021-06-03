@@ -9,6 +9,7 @@ import {DarkTheme} from "./themes/dark";
 import { LightTheme } from "./themes/light"
 
 function AppRouter() {
+
   const dispatch = useDispatch();
   const logoutUrl = `/auth/logout`
   useEffect(() => {

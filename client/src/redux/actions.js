@@ -1,11 +1,22 @@
 import {
+  ADD_CHANNEL,
   ADD_CHAT,
-  ADD_MESSAGE, CHANGE_USER_TO_DIALOG, CLOSE_POPUP,
+  ADD_MESSAGE,
+  CHANGE_USER_TO_DIALOG,
+  CLOSE_POPUP,
   FETCH_CHATS_FAILURE,
   FETCH_CHATS_REQUEST,
-  FETCH_CHATS_SUCCESS, FETCH_MESSAGES_FAILURE,
-  FETCH_MESSAGES_START, FETCH_MESSAGES_SUCCESS,
-  REQUEST_AUTH, SHOW_POPUP, SWITCH_THEME, UPDATE_CHAT_TO_UNREAD, UPDATE_USER_TO_CHAT
+  FETCH_CHATS_SUCCESS,
+  FETCH_MESSAGES_FAILURE,
+  FETCH_MESSAGES_START,
+  FETCH_MESSAGES_SUCCESS,
+  REQUEST_AUTH, SEND_MESSAGE_FAILURE,
+  SEND_MESSAGE_REQUEST,
+  SEND_MESSAGE_SUCCESS,
+  SHOW_POPUP,
+  SWITCH_THEME,
+  UPDATE_CHAT_TO_UNREAD,
+  UPDATE_USER_TO_CHAT
 } from "./types";
 
 export function checkAuth() {
@@ -97,5 +108,31 @@ export function addNewChat(data) {
   return {
     type: ADD_CHAT,
     payload: data
+  }
+}
+
+export function addNewChannel(data) {
+  return {
+    type: ADD_CHANNEL,
+    payload: data
+  }
+}
+
+export function sendMessageRequest() {
+  return {
+    type: SEND_MESSAGE_REQUEST
+  }
+}
+
+export function sendMessageSuccess() {
+  return {
+    type: SEND_MESSAGE_SUCCESS
+  }
+}
+
+export function sendMessageFailure(message) {
+  return {
+    type: SEND_MESSAGE_FAILURE,
+    payload: message
   }
 }

@@ -1,9 +1,10 @@
 import React, {useRef, useState} from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getMessages, getUser} from "../../redux/selectors";
+import {sendMessage} from '../../requests/messages';
 
-function SendArea(props) {
-  const socket = props.socket;
+function SendArea() {
+  const dispatch = useDispatch();
   const [message, setMessage] = useState('');
   const messages = useSelector(getMessages);
   const user = useSelector(getUser);
@@ -15,8 +16,9 @@ function SendArea(props) {
     if (message.length === 0 || fired) return
     setFired(true)
     // type, content, from: {id, name, username}, to: {type, id}
-    const data = {type: 'TEXT', to: {type: messages.type, id: messages.id}, from: user, content: message};
-    socket.emit('sendMessage', data)
+    const data = {to: {type: messages.type, id: messages.id}, from: user, content: {type: 'TEXT', value: message}};
+    // socket.emit('sendMessage', data)
+    dispatch(sendMessage(data))
     if (inputRef.current) {
       inputRef.current.value = '';
       setMessage('');

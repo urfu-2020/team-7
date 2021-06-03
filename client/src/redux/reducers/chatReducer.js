@@ -1,4 +1,5 @@
 import {
+  ADD_CHANNEL,
   ADD_CHAT,
   FETCH_CHATS_FAILURE,
   FETCH_CHATS_REQUEST,
@@ -10,6 +11,7 @@ import {
 const initialState = {
   chats: [],
   users: [],
+  channels: [],
   loading: true,
   error: ''
 }
@@ -23,7 +25,7 @@ export const chatReducer = (state = initialState, action) => {
       return {...action.payload, loading: false, error: ''}
     }
     case FETCH_CHATS_FAILURE: {
-      return {...action.payload, loading: false, users: [], chats: []}
+      return {...action.payload, loading: false, users: [], chats: [], channels: []}
     }
     case UPDATE_USER_TO_CHAT: {
       const uIds = action.payload.users.length > 0
@@ -45,6 +47,10 @@ export const chatReducer = (state = initialState, action) => {
     case ADD_CHAT: {
       const chats = state.chats.concat([action.payload])
       return {...state, chats}
+    }
+    case ADD_CHANNEL: {
+      const channels = state.channels.concat([action.payload]);
+      return {...state, channels}
     }
     default: return state
   }
