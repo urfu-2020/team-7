@@ -4,7 +4,6 @@ import Chat from "./Chat";
 import {useDispatch, useSelector} from "react-redux";
 import {getMessages, getUser} from "../../redux/selectors";
 import {receiveMessage} from "../../redux/actions";
-import SubscribeButton from "./SubscribeButton";
 
 function ChatWindow(props) {
   const socket = props.socket;
@@ -23,9 +22,7 @@ function ChatWindow(props) {
       {messages.type !== null && (
         <div className="main-window__chat-box chat-box">
           <Chat messageGroups={messages.messages} />
-          {(messages.type !== 'CHANNEL')
-            ? <SendArea socket={props.socket} />
-            : <SubscribeButton content="subscribe"/>}
+          {(messages.type !== 'CHANNEL' || messages.owner === user.id) && <SendArea />}
         </div>
       )}
     </section>

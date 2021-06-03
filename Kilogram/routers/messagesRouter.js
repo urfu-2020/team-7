@@ -1,7 +1,10 @@
 const messagesRouter = require('express').Router();
-const { isAuth, isChatAllowed } = require('../api/checks');
-const { getAllMessages } = require('../services/messages');
+const {
+  isAuth, isChatAllowedParam, isCorrectMessageBody, isChatAllowedBody,
+} = require('../api/checks');
+const { getAllMessages, sendMessage } = require('../services/messages');
 
-messagesRouter.get('/:id', isAuth, isChatAllowed, getAllMessages);
+messagesRouter.get('/:id', isAuth, isChatAllowedParam, getAllMessages);
+messagesRouter.post('', isAuth, isCorrectMessageBody, isChatAllowedBody, sendMessage);
 
 module.exports.messagesRouter = messagesRouter;

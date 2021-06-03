@@ -15,6 +15,7 @@ code {
     --white-darker: #f1f2f2;
     --light: #def2f1;
     --light-darker: #bdcecd;
+    --light-dark: #a1afae;
     --green: #3aafa9;
     --green-light: #c4e7e5;
     --dark-green: #2b7a78;
@@ -33,11 +34,13 @@ code {
     --contacts-color-hover: var(--white-darker);
     --message-content: black;
     --input-bg: var(--light);
-    --input-holder: var(--light-darker);
+    --input-holder: var(--light-dark);
     --input-text: black;
     --menu-bg: var(--white);
     --menu-hover: var(--white-darker);
     --menu-color: black;
+    --popup-bg: var(--white);
+    --error-color: orangered;
 
     font-family: "Montserrat", sans-serif;
 }
@@ -54,6 +57,7 @@ code {
     background: var(--bg-color);
 }
 .main-window {
+    position: relative;
     display: grid;
     grid-template-columns: 31fr 69fr;
     grid-template-rows: 48px 60px 1fr;
@@ -348,4 +352,23 @@ code {
 }
 .contacts__contact_unread {
     background: var(--green-light);
+}
+.contact__subgroup {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 15px 10px 0;
+    color: var(--contacts-color);
+    text-align: center;
+}
+.contact__subgroup:not(:first-child) {
+    margin-top: 5px;
+}
+.contact__subgroup::after {
+    position: absolute;
+    bottom: 5px;
+    left: 15px;
+    width: calc(100% - 30px);
+    border-bottom: 1px solid var(--contacts-color);
+    content: "";
 }

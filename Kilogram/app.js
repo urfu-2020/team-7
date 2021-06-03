@@ -43,10 +43,19 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(staticPath));
 }
 
-require('./routes')(app);
-
 // SOCKET SETUP
-setupIO(io);
+const idsToSockets = {};
+const socketsToIds = {};
+setupIO(io, idsToSockets, socketsToIds);
+
+module.exports = {
+  io,
+  idsToSockets,
+  socketsToIds,
+};
+
+// ROUTES SETUP
+require('./routes')(app);
 
 // DB SETUP
 const start = async () => {

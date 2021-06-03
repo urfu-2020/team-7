@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getUser} from "../../redux/selectors";
-import {closePopup} from "../../redux/actions";
+import {closePopup, showPopup} from "../../redux/actions";
 
-function CreateChannelForm(props) {
+const axios = require("axios");
+
+function CreateChannelForm() {
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState('');
   const user = useSelector(getUser)
@@ -19,7 +21,11 @@ function CreateChannelForm(props) {
       setNameError('')
     }
     if (errors || user === null) return
-    props.socket.emit('createChannel', {name, owner: user.id})
+    axios.post('/api/chats/', {type: 'CHANNEL', name, owner: user.id, users: []})
+      .catch(err => {
+        dispatch(showPopup('Creating error', err.message))
+      })
+    //props.socket.emit('createChannel', {name, owner: user.id})
     dispatch(closePopup());
   }
   return (

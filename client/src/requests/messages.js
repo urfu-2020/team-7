@@ -1,4 +1,10 @@
-import {fetchMessagesFailure, fetchMessagesRequest, fetchMessagesSuccess} from "../redux/actions";
+import {
+  fetchMessagesFailure,
+  fetchMessagesRequest,
+  fetchMessagesSuccess, sendMessageFailure,
+  sendMessageRequest,
+  sendMessageSuccess, showPopup
+} from "../redux/actions";
 const axios = require('axios');
 
 export function fetchMessages(type, id, owner) {
@@ -27,5 +33,18 @@ export function fetchMessages(type, id, owner) {
           dispatch(fetchMessagesFailure(err.message));
         })
     }
+  }
+}
+
+export function sendMessage(data) {
+  return function(dispatch) {
+    dispatch(sendMessageRequest())
+    axios.post('/api/messages/', data, {withCredentials: true})
+      .then(() => {
+        dispatch(sendMessageSuccess())
+      }).catch(err => {
+        dispatch(sendMessageFailure(err.message));
+        dispatch(showPopup('ERROR ON SENDING', err.message))
+    });
   }
 }

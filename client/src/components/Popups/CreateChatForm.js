@@ -3,9 +3,11 @@ import Select from 'react-select'
 import {useDispatch, useSelector} from "react-redux";
 import {getChats, getUser} from "../../redux/selectors";
 import './form.css';
-import {closePopup} from "../../redux/actions";
+import {closePopup, showPopup} from "../../redux/actions";
 
-function CreateChatForm(props) {
+const axios = require("axios");
+
+function CreateChatForm() {
   const styles = {
     container: (provided) => ({
       ...provided,
@@ -59,7 +61,10 @@ function CreateChatForm(props) {
     if (errors || user === null) return
     const mates = selected.map(opt => opt.value);
     mates.push(user.id);
-    props.socket.emit('createChat', {name, users: mates, owner: user.id})
+    axios.post(`/api/chats/`,
+      {name, users: mates, owner: user.id, type: 'GROUP'}, {withCredentials: true})
+      .catch(err => dispatch(showPopup('Creating Error', err.message)));
+    //props.socket.emit('createChat', {name, users: mates, owner: user.id})
     dispatch(closePopup());
   }
 

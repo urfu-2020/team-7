@@ -5,6 +5,7 @@ import {fetchChats} from "../../requests/chats";
 import {getChats, getMessages, getUser} from "../../redux/selectors";
 import ChatBar from "./ChatBar";
 import {addNewChannel, addNewChat, changeUserToDialog, setUnread, updateUserToChats} from "../../redux/actions";
+import SideTitle from "./SideTitle";
 
 function ContactList(props) {
   const socket = props.socket;
@@ -28,14 +29,13 @@ function ContactList(props) {
       dispatch(addNewChat(data));
     })
     socket.on('addNewChannel', (data) => {
-      if (data.owner !== user.id) {
-        dispatch(addNewChannel(data));
-      }
+      dispatch(addNewChannel(data));
     })
   }, [])
   return (
     <section className="main-window__contacts-container">
       <ul className="main-window__contacts contacts">
+        {chats.chats.length > 0 && <SideTitle title="Active chats" />}
         {/* eslint-disable-next-line array-callback-return */}
         {chats.chats.map((el) => {
           return (
@@ -46,10 +46,12 @@ function ContactList(props) {
                          unread={el.unread}/>
         )
         })}
+        {chats.channels.length > 0 && <SideTitle title="Public channels" />}
         {chats.channels.map(el => {
           return (<ChatBar name={el.name} key={`${el.type}${el.id}`} type={el.type} id={el.id} owner={el.owner}
                            unread={false}/>)
         })}
+        {chats.users.length > 0 && <SideTitle title="Other Users" />}
         {/* eslint-disable-next-line array-callback-return */}
         {chats.users.map(el => {
           return (<Contact username={el.username} name={el.name} key={`USER${el.id}`} type="USER" id={el.id}
