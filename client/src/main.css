@@ -139,6 +139,7 @@ code {
 .search__search-bar {
     flex-grow: 1;
     color: var(--input-text);
+    font-size: 16px;
     background: var(--input-bg);
     background-color: transparent;
     border: none;
@@ -275,6 +276,7 @@ code {
     height: 40px;
     padding: 12px 15px;
     color: var(--input-text);
+    font-size: 16px;
     background: transparent;
     background: var(--input-bg);
     border: none;
