@@ -1,7 +1,7 @@
 import {
   ADD_CHANNEL,
   ADD_CHAT,
-  ADD_MESSAGE,
+  ADD_MESSAGE, APP_CLOSE_CHAT, APP_OPEN_CHAT, APP_TO_FULL, APP_TO_MOBILE,
   CHANGE_USER_TO_DIALOG,
   CLOSE_POPUP,
   FETCH_CHATS_FAILURE,
@@ -10,7 +10,7 @@ import {
   FETCH_MESSAGES_FAILURE,
   FETCH_MESSAGES_START,
   FETCH_MESSAGES_SUCCESS,
-  REQUEST_AUTH, SEND_MESSAGE_FAILURE,
+  REQUEST_AUTH, SEARCH_FILTER_UPDATE, SEND_MESSAGE_FAILURE,
   SEND_MESSAGE_REQUEST,
   SEND_MESSAGE_SUCCESS,
   SHOW_POPUP,
@@ -134,5 +134,36 @@ export function sendMessageFailure(message) {
   return {
     type: SEND_MESSAGE_FAILURE,
     payload: message
+  }
+}
+
+export function searchUpdate(input) {
+  return {
+    type: SEARCH_FILTER_UPDATE,
+    payload: input
+  }
+}
+
+export function switchToMobile() {
+  return {
+    type: APP_TO_MOBILE,
+  }
+}
+
+export function switchToFull() {
+  return {
+    type: APP_TO_FULL,
+  }
+}
+
+export function closeChat() {
+  return {
+    type: APP_CLOSE_CHAT
+  }
+}
+
+export function openChat() {
+  return {
+    type: APP_OPEN_CHAT
   }
 }

@@ -17,8 +17,12 @@
     .main-window__search-container,
     .main-window__chats-container {
         position: relative;
+        transition: left 3s;
+    }
+    .main-window__contacts-container_moved,
+    .main-window__search-container_moved,
+    .main-window__chats-container_moved {
         left: -100vw;
-        transition: left 0.5s;
     }
     .header__back-button {
         display: flex;

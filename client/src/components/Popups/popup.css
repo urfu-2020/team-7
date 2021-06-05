@@ -20,6 +20,7 @@
 }
 .popup__title {
     margin-bottom: 20px;
+    padding-right: 25px;
     color: var(--input-text);
     font-weight: bold;
     font-size: 20px;
