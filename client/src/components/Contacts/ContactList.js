@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Contact from "./Contact";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchChats} from "../../requests/chats";
-import {getChats, getMessages, getUser} from "../../redux/selectors";
+import {getChats, getMessages, getMobile, getUser} from "../../redux/selectors";
 import ChatBar from "./ChatBar";
 import {addNewChannel, addNewChat, changeUserToDialog, setUnread, updateUserToChats} from "../../redux/actions";
 import SideTitle from "./SideTitle";
@@ -32,8 +32,11 @@ function ContactList(props) {
       dispatch(addNewChannel(data));
     })
   }, [])
+  const mobile = useSelector(getMobile)
   return (
-    <section className="main-window__contacts-container">
+    <section className={`main-window__contacts-container${mobile.isMobile && !mobile.isMenuOpen
+      ? ' main-window__contacts-container_moved'
+      : ''}`}>
       <ul className="main-window__contacts contacts">
         {chats.chats.length > 0 && <SideTitle title="Active chats" />}
         {/* eslint-disable-next-line array-callback-return */}

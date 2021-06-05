@@ -2,11 +2,13 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {fetchMessages} from "../../requests/messages";
 import {getSearchFilter} from "../../redux/selectors";
+import {openChat} from "../../redux/actions";
 
 function SideTab(props) {
   const dispatch = useDispatch();
   const handler = (e) => {
     e.preventDefault();
+    dispatch(openChat())
     dispatch(fetchMessages(props.type, props.id, props.owner))
   }
   const filter = useSelector(getSearchFilter).toLowerCase();

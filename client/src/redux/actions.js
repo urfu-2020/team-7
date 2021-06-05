@@ -1,7 +1,7 @@
 import {
   ADD_CHANNEL,
   ADD_CHAT,
-  ADD_MESSAGE,
+  ADD_MESSAGE, APP_CLOSE_CHAT, APP_OPEN_CHAT, APP_TO_FULL, APP_TO_MOBILE,
   CHANGE_USER_TO_DIALOG,
   CLOSE_POPUP,
   FETCH_CHATS_FAILURE,
@@ -141,5 +141,29 @@ export function searchUpdate(input) {
   return {
     type: SEARCH_FILTER_UPDATE,
     payload: input
+  }
+}
+
+export function switchToMobile() {
+  return {
+    type: APP_TO_MOBILE,
+  }
+}
+
+export function switchToFull() {
+  return {
+    type: APP_TO_FULL,
+  }
+}
+
+export function closeChat() {
+  return {
+    type: APP_CLOSE_CHAT
+  }
+}
+
+export function openChat() {
+  return {
+    type: APP_OPEN_CHAT
   }
 }

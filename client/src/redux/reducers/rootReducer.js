@@ -5,6 +5,7 @@ import {messagesReducer} from "./messagesReducer";
 import {popupReducer} from "./popupReducer";
 import {sendReducer} from "./sendReducer";
 import {filterReducer} from "./filterReducer";
+import {mobileReducer} from "./mobileReducer";
 
 export const rootReducer = combineReducers({
   app: appReducer,
@@ -13,4 +14,5 @@ export const rootReducer = combineReducers({
   popup: popupReducer,
   sender: sendReducer,
   filter: filterReducer,
+  mobile: mobileReducer
 })

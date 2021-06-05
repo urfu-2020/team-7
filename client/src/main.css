@@ -102,6 +102,7 @@ code {
 .header__back-button {
     display: none;
     margin-left: 15px;
+    cursor: pointer;
 }
 .header__menu-button:hover,
 .header__back-button:hover {

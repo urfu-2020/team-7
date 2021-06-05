@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {searchUpdate} from "../../redux/actions";
+import {getMobile} from "../../redux/selectors";
 
 function SearchBar() {
   const dispatch = useDispatch();
@@ -15,8 +16,11 @@ function SearchBar() {
     dispatch(searchUpdate(''));
     if (ref.current) ref.current.value = ''
   }
+  const mobile = useSelector(getMobile);
   return (
-    <section className="main-window__search-container">
+    <section className={`main-window__search-container${mobile.isMobile && !mobile.isMenuOpen
+      ? ' main-window__search-container_moved'
+      : ''}`}>
       <div className="main-window__search search">
         <label htmlFor="chat-search" className="search__label">
           <i className="fas fa-search"/>
