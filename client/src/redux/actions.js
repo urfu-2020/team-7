@@ -10,7 +10,7 @@ import {
   FETCH_MESSAGES_FAILURE,
   FETCH_MESSAGES_START,
   FETCH_MESSAGES_SUCCESS,
-  REQUEST_AUTH, SEND_MESSAGE_FAILURE,
+  REQUEST_AUTH, SEARCH_FILTER_UPDATE, SEND_MESSAGE_FAILURE,
   SEND_MESSAGE_REQUEST,
   SEND_MESSAGE_SUCCESS,
   SHOW_POPUP,
@@ -134,5 +134,12 @@ export function sendMessageFailure(message) {
   return {
     type: SEND_MESSAGE_FAILURE,
     payload: message
+  }
+}
+
+export function searchUpdate(input) {
+  return {
+    type: SEARCH_FILTER_UPDATE,
+    payload: input
   }
 }
