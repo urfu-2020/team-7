@@ -24,6 +24,21 @@ function SendArea() {
       setMessage('');
     }
   }
+
+  const send = (e) => {
+    e.preventDefault();
+
+    if (message.length === 0 || fired) return
+    // type, content, from: {id, name, username}, to: {type, id}
+    const data = {to: {type: messages.type, id: messages.id}, from: user, content: {type: 'TEXT', value: message}};
+    // socket.emit('sendMessage', data)
+    dispatch(sendMessage(data))
+    if (inputRef.current) {
+      inputRef.current.value = '';
+      setMessage('');
+    }
+    setFired(false);
+  }
   const keyPressHandler = (e) => {
     if (e.key === 'Enter') {
       if (!e.shiftKey) {
@@ -43,7 +58,7 @@ function SendArea() {
                   placeholder="Write a message..." onChange={e => setMessage(e.target.value.trim())}
                   ref={inputRef} onKeyPress={keyPressHandler} onKeyUp={e => keyUpHandler(e)}/>
       </label>
-      <div className="chat-box__send-button" onClick={sendHandler}>
+      <div className="chat-box__send-button" onClick={send}>
         <i className="far fa-paper-plane"/>
       </div>
     </div>
