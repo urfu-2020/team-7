@@ -62,9 +62,11 @@ export const messagesReducer = (state = initialState, action) => {
         const options = {
           body: action.payload.message.content,
           icon: '/logo192.png',
-          vibrate: [200, 100, 200]
         }
         new Notification(title, options);
+      }
+      if (window && window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate([200, 100, 200])
       }
       return state
     default: return state
