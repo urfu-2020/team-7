@@ -57,7 +57,7 @@ export const messagesReducer = (state = initialState, action) => {
       }
       return state
     case APP_SEND_NOTIFICATION:
-      if (action.payload.message.chatId !== state.id) {
+      if (action.payload.message.chatId !== state.id  && ('Notification' in window)) {
         const title = `[Kilogram]: Message from ${action.payload.user.name || action.payload.user.username}`;
         const options = {
           body: action.payload.message.content,

@@ -27,8 +27,10 @@ function MainPage() {
       axios.put(`/api/users/${user.id}/socket/`, {id: socket.id}, {withCredentials: true})
         .catch(err => dispatch(showPopup('Socket error', err.message)))
     })
-    if (Notification.permission === 'default') {
+    if (('Notification' in window)) {
+      if (Notification.permission === 'default') {
         Notification.requestPermission().then(() => {})
+      }
     }
   }, [])
   const popup = useSelector(getPopup);
