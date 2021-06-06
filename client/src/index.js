@@ -12,7 +12,6 @@ import {sagaWatcher} from "./redux/sagas";
 
 // eslint-disable-next-line no-unused-vars
 const saga = createSagaMiddleware();
-console.log(window.navigator.userAgent)
 // CHECKING FOR DEVTOOLS
 const isChromium = window.chrome;
 const winNav = window.navigator;

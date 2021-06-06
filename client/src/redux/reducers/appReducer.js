@@ -1,4 +1,4 @@
-import {APP_LOGIN_USER, APP_LOGOUT_USER, SWITCH_THEME} from "../types";
+import {APP_LOGIN_USER, APP_LOGOUT_USER, APP_SEND_NOTIFICATION, SWITCH_THEME} from "../types";
 
 const initialState = {
   user: null,
@@ -18,6 +18,11 @@ export const appReducer = (state = initialState, action) => {
       return state
     case SWITCH_THEME:
       return {...state, theme: action.payload, user: {...state.user, theme: action.payload}}
+    case APP_SEND_NOTIFICATION:
+      if (state.user.id !== action.payload.user.id && window && window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate([200, 100, 200])
+      }
+      return state
     default: return state
   }
 }

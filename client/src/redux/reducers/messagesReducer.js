@@ -65,9 +65,6 @@ export const messagesReducer = (state = initialState, action) => {
         }
         new Notification(title, options);
       }
-      if (window && window.navigator && window.navigator.vibrate) {
-        window.navigator.vibrate([200, 100, 200])
-      }
       return state
     default: return state
   }
