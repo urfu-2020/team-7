@@ -12,9 +12,29 @@ import {sagaWatcher} from "./redux/sagas";
 
 // eslint-disable-next-line no-unused-vars
 const saga = createSagaMiddleware();
-const devtools = process.env.NODE_ENV !== 'production' && window.navigator.userAgent.includes('Chrome')
-  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
-  : f => f
+console.log(window.navigator.userAgent)
+// CHECKING FOR DEVTOOLS
+const isChromium = window.chrome;
+const winNav = window.navigator;
+const vendorName = winNav.vendor;
+const isOpera = typeof window.opr !== "undefined";
+const isIEedge = winNav.userAgent.indexOf("Edge") > -1;
+const isIOSChrome = winNav.userAgent.match("CriOS");
+let devtools;
+if (isIOSChrome) {
+  devtools = f => f
+} else if(
+  process.env.NODE_ENV !== 'production' &&
+  isChromium !== null &&
+  typeof isChromium !== "undefined" &&
+  vendorName === "Google Inc." &&
+  isOpera === false &&
+  isIEedge === false
+) {
+  devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
+} else {
+  devtools = f => f
+}
 const store = createStore(rootReducer, compose(
   applyMiddleware(thunk, saga),
   devtools

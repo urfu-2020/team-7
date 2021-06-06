@@ -86,8 +86,10 @@ async function sendMessage(req, res) {
     await message.setChat(c.id);
     if (c.type === 'CHANNEL') {
       io.local.emit('receiveMessage', { message, user: req.body.from });
+      io.local.emit('updateChatStatus', { message, user: req.body.from });
     } else {
       io.in(`CHAT${c.id}`).emit('receiveMessage', { message, user: req.body.from });
+      io.in(`CHAT${c.id}`).emit('updateChatStatus', { message, user: req.body.from });
     }
     res.status(200).json({ message: 'Successfully send!' });
   } catch (e) {

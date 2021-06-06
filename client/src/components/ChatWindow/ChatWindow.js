@@ -3,7 +3,7 @@ import SendArea from "./SendArea";
 import Chat from "./Chat";
 import {useDispatch, useSelector} from "react-redux";
 import {getMessages, getMobile, getUser} from "../../redux/selectors";
-import {receiveMessage} from "../../redux/actions";
+import {receiveMessage, sendNotification} from "../../redux/actions";
 
 function ChatWindow(props) {
   const socket = props.socket;
@@ -13,6 +13,7 @@ function ChatWindow(props) {
   useEffect(() => {
     socket.on('receiveMessage', (data) => {
       dispatch(receiveMessage(data))
+      dispatch(sendNotification(data))
     })
   }, [])
   const mobile = useSelector(getMobile)

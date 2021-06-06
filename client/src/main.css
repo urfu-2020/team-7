@@ -343,6 +343,7 @@ code {
     object-fit: cover;
 }
 .message__content {
+    box-sizing: border-box;
     width: 100%;
     min-width: 0;
     padding-right: 10px;

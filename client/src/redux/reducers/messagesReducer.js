@@ -1,5 +1,5 @@
 import {
-  ADD_MESSAGE,
+  ADD_MESSAGE, APP_SEND_NOTIFICATION,
   CHANGE_USER_TO_DIALOG,
   FETCH_CHATS_FAILURE,
   FETCH_MESSAGES_START,
@@ -54,6 +54,17 @@ export const messagesReducer = (state = initialState, action) => {
           messages: [],
           error: '',
         }
+      }
+      return state
+    case APP_SEND_NOTIFICATION:
+      if (action.payload.message.chatId !== state.id) {
+        const title = `[Kilogram]: Message from ${action.payload.user.name || action.payload.user.username}`;
+        const options = {
+          body: action.payload.message.content,
+          icon: '/logo192.png',
+          vibrate: [200, 100, 200]
+        }
+        new Notification(title, options);
       }
       return state
     default: return state

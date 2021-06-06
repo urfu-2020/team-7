@@ -1,7 +1,7 @@
 import {
   ADD_CHANNEL,
   ADD_CHAT,
-  ADD_MESSAGE, APP_CLOSE_CHAT, APP_OPEN_CHAT, APP_TO_FULL, APP_TO_MOBILE,
+  ADD_MESSAGE, APP_CLOSE_CHAT, APP_OPEN_CHAT, APP_SEND_NOTIFICATION, APP_TO_FULL, APP_TO_MOBILE,
   CHANGE_USER_TO_DIALOG,
   CLOSE_POPUP,
   FETCH_CHATS_FAILURE,
@@ -88,6 +88,13 @@ export function switchTheme(theme) {
   return {
     type: SWITCH_THEME,
     payload: theme
+  }
+}
+
+export function sendNotification(data) {
+  return {
+    type: APP_SEND_NOTIFICATION,
+    payload: data
   }
 }
 

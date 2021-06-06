@@ -2,9 +2,9 @@ import React, {useEffect} from 'react';
 import Contact from "./Contact";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchChats} from "../../requests/chats";
-import {getChats, getMessages, getMobile, getUser} from "../../redux/selectors";
+import {getChats, getMobile, getUser} from "../../redux/selectors";
 import ChatBar from "./ChatBar";
-import {addNewChannel, addNewChat, changeUserToDialog, setUnread, updateUserToChats} from "../../redux/actions";
+import {addNewChannel, addNewChat, changeUserToDialog, updateUserToChats} from "../../redux/actions";
 import SideTitle from "./SideTitle";
 
 function ContactList(props) {
@@ -12,18 +12,11 @@ function ContactList(props) {
   const dispatch = useDispatch();
   const user = useSelector(getUser)
   const chats = useSelector(getChats)
-  const messages = useSelector(getMessages);
   useEffect(() => {
     dispatch(fetchChats(user.id))
     socket.on('replaceUserToChat', (data) => {
       dispatch(updateUserToChats(user.id, data));
       dispatch(changeUserToDialog(data));
-    })
-    socket.on('receiveMessage', (data) => {
-      const chatId = data.message.chatId;
-      if (messages.type !== 'USER' && messages.id === chatId) {
-        dispatch(setUnread(data.message.chatId))
-      }
     })
     socket.on('addChat', (data) => {
       dispatch(addNewChat(data));
